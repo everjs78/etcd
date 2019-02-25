@@ -29,7 +29,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coreos/etcd/version"
+	"github.com/everjs78/etcd/version"
 )
 
 var (

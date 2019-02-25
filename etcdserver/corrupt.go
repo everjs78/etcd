@@ -19,11 +19,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/mvcc"
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/everjs78/etcd/clientv3"
+	"github.com/everjs78/etcd/etcdserver/api/v3rpc/rpctypes"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/mvcc"
+	"github.com/everjs78/etcd/pkg/types"
 )
 
 // CheckInitialHashKV compares initial hash values with its peers

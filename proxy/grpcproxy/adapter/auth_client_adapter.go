@@ -17,7 +17,7 @@ package adapter
 import (
 	"context"
 
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
 
 	grpc "google.golang.org/grpc"
 )

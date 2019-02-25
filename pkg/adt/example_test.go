@@ -17,7 +17,7 @@ package adt_test
 import (
 	"fmt"
 
-	"github.com/coreos/etcd/pkg/adt"
+	"github.com/everjs78/etcd/pkg/adt"
 )
 
 func Example() {

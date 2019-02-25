@@ -19,14 +19,14 @@ import (
 	"crypto/sha256"
 	"io"
 
-	"github.com/coreos/etcd/auth"
-	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/mvcc"
-	"github.com/coreos/etcd/mvcc/backend"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/version"
+	"github.com/everjs78/etcd/auth"
+	"github.com/everjs78/etcd/etcdserver"
+	"github.com/everjs78/etcd/etcdserver/api/v3rpc/rpctypes"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/mvcc"
+	"github.com/everjs78/etcd/mvcc/backend"
+	"github.com/everjs78/etcd/pkg/types"
+	"github.com/everjs78/etcd/version"
 )
 
 type KVGetter interface {

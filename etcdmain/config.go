@@ -25,10 +25,10 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/coreos/etcd/embed"
-	"github.com/coreos/etcd/pkg/flags"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/version"
+	"github.com/everjs78/etcd/embed"
+	"github.com/everjs78/etcd/pkg/flags"
+	"github.com/everjs78/etcd/pkg/types"
+	"github.com/everjs78/etcd/version"
 
 	"github.com/ghodss/yaml"
 )

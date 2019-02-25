@@ -22,10 +22,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/coreos/etcd/clientv3"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/pkg/transport"
-	"github.com/coreos/etcd/snapshot"
+	"github.com/everjs78/etcd/clientv3"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/pkg/transport"
+	"github.com/everjs78/etcd/snapshot"
 
 	"github.com/dustin/go-humanize"
 	"go.uber.org/zap"

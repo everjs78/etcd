@@ -18,9 +18,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/version"
 	"github.com/coreos/go-semver/semver"
+	"github.com/everjs78/etcd/pkg/types"
+	"github.com/everjs78/etcd/version"
 )
 
 func TestDecideClusterVersion(t *testing.T) {

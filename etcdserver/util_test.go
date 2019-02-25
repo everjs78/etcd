@@ -19,11 +19,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/etcdserver/membership"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/raft/raftpb"
-	"github.com/coreos/etcd/rafthttp"
-	"github.com/coreos/etcd/snap"
+	"github.com/everjs78/etcd/etcdserver/membership"
+	"github.com/everjs78/etcd/pkg/types"
+	"github.com/everjs78/etcd/raft/raftpb"
+	"github.com/everjs78/etcd/rafthttp"
+	"github.com/everjs78/etcd/snap"
 )
 
 func TestLongestConnected(t *testing.T) {

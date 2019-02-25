@@ -1,4 +1,4 @@
-package: github.com/coreos/etcd
+package: github.com/everjs78/etcd
 ignore:
 - google.golang.org/appengine
 import:

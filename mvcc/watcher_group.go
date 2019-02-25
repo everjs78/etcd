@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/coreos/etcd/mvcc/mvccpb"
-	"github.com/coreos/etcd/pkg/adt"
+	"github.com/everjs78/etcd/mvcc/mvccpb"
+	"github.com/everjs78/etcd/pkg/adt"
 )
 
 var (

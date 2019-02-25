@@ -21,17 +21,17 @@ import (
 	"net/http"
 	"strings"
 
-	etcdErr "github.com/coreos/etcd/error"
-	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/etcdserver/api"
-	"github.com/coreos/etcd/etcdserver/api/v2http/httptypes"
-	"github.com/coreos/etcd/pkg/logutil"
-	"github.com/coreos/etcd/version"
 	"github.com/coreos/pkg/capnslog"
+	etcdErr "github.com/everjs78/etcd/error"
+	"github.com/everjs78/etcd/etcdserver"
+	"github.com/everjs78/etcd/etcdserver/api"
+	"github.com/everjs78/etcd/etcdserver/api/v2http/httptypes"
+	"github.com/everjs78/etcd/pkg/logutil"
+	"github.com/everjs78/etcd/version"
 )
 
 var (
-	plog = capnslog.NewPackageLogger("github.com/coreos/etcd", "etcdserver/api/etcdhttp")
+	plog = capnslog.NewPackageLogger("github.com/everjs78/etcd", "etcdserver/api/etcdhttp")
 	mlog = logutil.NewMergeLogger(plog)
 )
 

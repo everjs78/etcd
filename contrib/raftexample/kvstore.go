@@ -21,7 +21,7 @@ import (
 	"log"
 	"sync"
 
-	"github.com/coreos/etcd/snap"
+	"github.com/everjs78/etcd/snap"
 )
 
 // a key-value store backed by raft

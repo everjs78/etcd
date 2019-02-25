@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/coreos/etcd/lease"
-	"github.com/coreos/etcd/mvcc/backend"
+	"github.com/everjs78/etcd/lease"
+	"github.com/everjs78/etcd/mvcc/backend"
 )
 
 func BenchmarkKVWatcherMemoryUsage(b *testing.B) {

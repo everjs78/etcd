@@ -24,7 +24,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/coreos/etcd/pkg/expect"
+	"github.com/everjs78/etcd/pkg/expect"
 )
 
 type proxyEtcdProcess struct {

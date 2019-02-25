@@ -18,7 +18,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/everjs78/etcd/pkg/types"
 )
 
 func mustNewURLs(t *testing.T, urls []string) []url.URL {
@@ -189,8 +189,8 @@ func TestWALDir(t *testing.T) {
 
 func TestShouldDiscover(t *testing.T) {
 	tests := map[string]bool{
-		"":    false,
-		"foo": true,
+		"":                              false,
+		"foo":                           true,
 		"http://discovery.etcd.io/asdf": true,
 	}
 	for durl, w := range tests {

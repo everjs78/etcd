@@ -23,8 +23,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/clientv3/concurrency"
+	"github.com/everjs78/etcd/clientv3"
+	"github.com/everjs78/etcd/clientv3/concurrency"
 
 	"github.com/spf13/cobra"
 )

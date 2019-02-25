@@ -17,10 +17,10 @@
 package integration
 
 import (
-	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/etcdserver/api/v3election/v3electionpb"
-	"github.com/coreos/etcd/etcdserver/api/v3lock/v3lockpb"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/clientv3"
+	"github.com/everjs78/etcd/etcdserver/api/v3election/v3electionpb"
+	"github.com/everjs78/etcd/etcdserver/api/v3lock/v3lockpb"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
 )
 
 func toGRPC(c *clientv3.Client) grpcAPI {

@@ -23,9 +23,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/lease"
-	"github.com/coreos/etcd/mvcc/backend"
-	"github.com/coreos/etcd/mvcc/mvccpb"
+	"github.com/everjs78/etcd/lease"
+	"github.com/everjs78/etcd/mvcc/backend"
+	"github.com/everjs78/etcd/mvcc/mvccpb"
 )
 
 func TestWatch(t *testing.T) {

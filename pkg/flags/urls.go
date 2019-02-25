@@ -17,7 +17,7 @@ package flags
 import (
 	"strings"
 
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/everjs78/etcd/pkg/types"
 )
 
 type URLsValue types.URLs

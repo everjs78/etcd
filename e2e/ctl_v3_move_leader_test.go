@@ -22,10 +22,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/pkg/testutil"
-	"github.com/coreos/etcd/pkg/transport"
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/everjs78/etcd/clientv3"
+	"github.com/everjs78/etcd/pkg/testutil"
+	"github.com/everjs78/etcd/pkg/transport"
+	"github.com/everjs78/etcd/pkg/types"
 )
 
 func TestCtlV3MoveLeaderSecure(t *testing.T) {

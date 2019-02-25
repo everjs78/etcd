@@ -23,12 +23,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/etcdserver/api/v3rpc"
-	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
-	"github.com/coreos/etcd/integration"
-	mvccpb "github.com/coreos/etcd/mvcc/mvccpb"
-	"github.com/coreos/etcd/pkg/testutil"
+	"github.com/everjs78/etcd/clientv3"
+	"github.com/everjs78/etcd/etcdserver/api/v3rpc"
+	"github.com/everjs78/etcd/etcdserver/api/v3rpc/rpctypes"
+	"github.com/everjs78/etcd/integration"
+	mvccpb "github.com/everjs78/etcd/mvcc/mvccpb"
+	"github.com/everjs78/etcd/pkg/testutil"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"

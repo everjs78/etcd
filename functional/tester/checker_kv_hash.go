@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/coreos/etcd/functional/rpcpb"
+	"github.com/everjs78/etcd/functional/rpcpb"
 
 	"go.uber.org/zap"
 )

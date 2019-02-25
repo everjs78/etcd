@@ -20,7 +20,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/everjs78/etcd/pkg/types"
 )
 
 func timeParse(value string) *time.Time {

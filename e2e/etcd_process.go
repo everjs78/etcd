@@ -19,8 +19,8 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/coreos/etcd/pkg/expect"
-	"github.com/coreos/etcd/pkg/fileutil"
+	"github.com/everjs78/etcd/pkg/expect"
+	"github.com/everjs78/etcd/pkg/fileutil"
 )
 
 var (

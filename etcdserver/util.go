@@ -20,10 +20,10 @@ import (
 	"strings"
 	"time"
 
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/etcdserver/membership"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/rafthttp"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/etcdserver/membership"
+	"github.com/everjs78/etcd/pkg/types"
+	"github.com/everjs78/etcd/rafthttp"
 	"github.com/golang/protobuf/proto"
 )
 

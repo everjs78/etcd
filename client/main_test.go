@@ -23,9 +23,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/integration"
-	"github.com/coreos/etcd/pkg/testutil"
-	"github.com/coreos/etcd/pkg/transport"
+	"github.com/everjs78/etcd/integration"
+	"github.com/everjs78/etcd/pkg/testutil"
+	"github.com/everjs78/etcd/pkg/transport"
 )
 
 var exampleEndpoints []string

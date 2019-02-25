@@ -18,9 +18,9 @@ import (
 	"fmt"
 	"strings"
 
-	v3 "github.com/coreos/etcd/clientv3"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/pkg/types"
+	v3 "github.com/everjs78/etcd/clientv3"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/pkg/types"
 )
 
 type simplePrinter struct {

@@ -19,7 +19,7 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/coreos/etcd/mvcc/mvccpb"
+	"github.com/everjs78/etcd/mvcc/mvccpb"
 )
 
 var (

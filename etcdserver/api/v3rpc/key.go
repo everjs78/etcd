@@ -18,16 +18,16 @@ package v3rpc
 import (
 	"context"
 
-	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/pkg/adt"
+	"github.com/everjs78/etcd/etcdserver"
+	"github.com/everjs78/etcd/etcdserver/api/v3rpc/rpctypes"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/pkg/adt"
 
 	"github.com/coreos/pkg/capnslog"
 )
 
 var (
-	plog = capnslog.NewPackageLogger("github.com/coreos/etcd", "etcdserver/api/v3rpc")
+	plog = capnslog.NewPackageLogger("github.com/everjs78/etcd", "etcdserver/api/v3rpc")
 )
 
 type kvServer struct {

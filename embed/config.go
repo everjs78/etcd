@@ -26,14 +26,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/coreos/etcd/compactor"
-	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/pkg/cors"
-	"github.com/coreos/etcd/pkg/netutil"
-	"github.com/coreos/etcd/pkg/srv"
-	"github.com/coreos/etcd/pkg/tlsutil"
-	"github.com/coreos/etcd/pkg/transport"
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/everjs78/etcd/compactor"
+	"github.com/everjs78/etcd/etcdserver"
+	"github.com/everjs78/etcd/pkg/cors"
+	"github.com/everjs78/etcd/pkg/netutil"
+	"github.com/everjs78/etcd/pkg/srv"
+	"github.com/everjs78/etcd/pkg/tlsutil"
+	"github.com/everjs78/etcd/pkg/transport"
+	"github.com/everjs78/etcd/pkg/types"
 
 	"github.com/coreos/pkg/capnslog"
 	"github.com/ghodss/yaml"
@@ -273,17 +273,17 @@ func NewConfig() *Config {
 		TickMs:                     100,
 		ElectionMs:                 1000,
 		InitialElectionTickAdvance: true,
-		LPUrls:              []url.URL{*lpurl},
-		LCUrls:              []url.URL{*lcurl},
-		APUrls:              []url.URL{*apurl},
-		ACUrls:              []url.URL{*acurl},
-		ClusterState:        ClusterStateFlagNew,
-		InitialClusterToken: "etcd-cluster",
-		StrictReconfigCheck: DefaultStrictReconfigCheck,
-		LogOutput:           DefaultLogOutput,
-		Metrics:             "basic",
-		EnableV2:            DefaultEnableV2,
-		AuthToken:           "simple",
+		LPUrls:                     []url.URL{*lpurl},
+		LCUrls:                     []url.URL{*lcurl},
+		APUrls:                     []url.URL{*apurl},
+		ACUrls:                     []url.URL{*acurl},
+		ClusterState:               ClusterStateFlagNew,
+		InitialClusterToken:        "etcd-cluster",
+		StrictReconfigCheck:        DefaultStrictReconfigCheck,
+		LogOutput:                  DefaultLogOutput,
+		Metrics:                    "basic",
+		EnableV2:                   DefaultEnableV2,
+		AuthToken:                  "simple",
 	}
 	cfg.InitialCluster = cfg.InitialClusterFromName(cfg.Name)
 	return cfg
@@ -319,7 +319,7 @@ func (cfg *Config) SetupLogging() {
 		grpclog.SetLoggerV2(grpclog.NewLoggerV2(ioutil.Discard, os.Stderr, os.Stderr))
 	}
 	if cfg.LogPkgLevels != "" {
-		repoLog := capnslog.MustRepoLogger("github.com/coreos/etcd")
+		repoLog := capnslog.MustRepoLogger("github.com/everjs78/etcd")
 		settings, err := repoLog.ParseLogLevelConfig(cfg.LogPkgLevels)
 		if err != nil {
 			plog.Warningf("couldn't parse log level string: %s, continuing with default levels", err.Error())

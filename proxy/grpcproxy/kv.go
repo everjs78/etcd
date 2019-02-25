@@ -17,9 +17,9 @@ package grpcproxy
 import (
 	"context"
 
-	"github.com/coreos/etcd/clientv3"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/proxy/grpcproxy/cache"
+	"github.com/everjs78/etcd/clientv3"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/proxy/grpcproxy/cache"
 )
 
 type kvProxy struct {

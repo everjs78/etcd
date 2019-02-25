@@ -22,10 +22,10 @@ import (
 	"strconv"
 	"testing"
 
-	epb "github.com/coreos/etcd/etcdserver/api/v3election/v3electionpb"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/pkg/testutil"
-	"github.com/coreos/etcd/version"
+	epb "github.com/everjs78/etcd/etcdserver/api/v3election/v3electionpb"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/pkg/testutil"
+	"github.com/everjs78/etcd/version"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 )

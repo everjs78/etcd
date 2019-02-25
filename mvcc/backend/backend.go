@@ -40,7 +40,7 @@ var (
 	// This only works for linux.
 	initialMmapSize = uint64(10 * 1024 * 1024 * 1024)
 
-	plog = capnslog.NewPackageLogger("github.com/coreos/etcd", "mvcc/backend")
+	plog = capnslog.NewPackageLogger("github.com/everjs78/etcd", "mvcc/backend")
 
 	// minSnapshotWarningTimeout is the minimum threshold to trigger a long running snapshot warning.
 	minSnapshotWarningTimeout = time.Duration(30 * time.Second)
@@ -292,7 +292,7 @@ func (b *backend) Defrag() error {
 
 func (b *backend) defrag() error {
 	now := time.Now()
-	
+
 	// TODO: make this non-blocking?
 	// lock batchTx to ensure nobody is using previous tx, and then
 	// close previous ongoing tx.

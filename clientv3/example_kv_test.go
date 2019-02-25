@@ -19,8 +19,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
+	"github.com/everjs78/etcd/clientv3"
+	"github.com/everjs78/etcd/etcdserver/api/v3rpc/rpctypes"
 )
 
 func ExampleKV_put() {

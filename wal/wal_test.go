@@ -23,10 +23,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/coreos/etcd/pkg/fileutil"
-	"github.com/coreos/etcd/pkg/pbutil"
-	"github.com/coreos/etcd/raft/raftpb"
-	"github.com/coreos/etcd/wal/walpb"
+	"github.com/everjs78/etcd/pkg/fileutil"
+	"github.com/everjs78/etcd/pkg/pbutil"
+	"github.com/everjs78/etcd/raft/raftpb"
+	"github.com/everjs78/etcd/wal/walpb"
 )
 
 func TestNew(t *testing.T) {

@@ -21,8 +21,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/coreos/etcd/functional/rpcpb"
-	"github.com/coreos/etcd/pkg/proxy"
+	"github.com/everjs78/etcd/functional/rpcpb"
+	"github.com/everjs78/etcd/pkg/proxy"
 
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -61,10 +61,10 @@ func NewServer(
 	address string,
 ) *Server {
 	return &Server{
-		lg:      lg,
-		network: network,
-		address: address,
-		last:    rpcpb.Operation_NOT_STARTED,
+		lg:                         lg,
+		network:                    network,
+		address:                    address,
+		last:                       rpcpb.Operation_NOT_STARTED,
 		advertiseClientPortToProxy: make(map[int]proxy.Server),
 		advertisePeerPortToProxy:   make(map[int]proxy.Server),
 	}

@@ -19,9 +19,9 @@ import (
 	"encoding/json"
 	"path"
 
-	etcderr "github.com/coreos/etcd/error"
-	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/etcdserver/etcdserverpb"
+	etcderr "github.com/everjs78/etcd/error"
+	"github.com/everjs78/etcd/etcdserver"
+	"github.com/everjs78/etcd/etcdserver/etcdserverpb"
 )
 
 func (s *store) ensureAuthDirectories() error {

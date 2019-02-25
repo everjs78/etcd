@@ -15,8 +15,8 @@
 package v3rpc
 
 import (
-	"github.com/coreos/etcd/etcdserver"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/etcdserver"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
 )
 
 type header struct {

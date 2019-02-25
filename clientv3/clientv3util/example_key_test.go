@@ -18,8 +18,8 @@ import (
 	"context"
 	"log"
 
-	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/clientv3/clientv3util"
+	"github.com/everjs78/etcd/clientv3"
+	"github.com/everjs78/etcd/clientv3/clientv3util"
 )
 
 func ExampleKeyExists_put() {

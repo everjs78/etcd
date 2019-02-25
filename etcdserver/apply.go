@@ -20,12 +20,12 @@ import (
 	"sort"
 	"time"
 
-	"github.com/coreos/etcd/auth"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/lease"
-	"github.com/coreos/etcd/mvcc"
-	"github.com/coreos/etcd/mvcc/mvccpb"
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/everjs78/etcd/auth"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/lease"
+	"github.com/everjs78/etcd/mvcc"
+	"github.com/everjs78/etcd/mvcc/mvccpb"
+	"github.com/everjs78/etcd/pkg/types"
 
 	"github.com/gogo/protobuf/proto"
 )

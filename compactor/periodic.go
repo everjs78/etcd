@@ -19,8 +19,8 @@ import (
 	"sync"
 	"time"
 
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/mvcc"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/mvcc"
 
 	"github.com/jonboulle/clockwork"
 )

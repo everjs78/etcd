@@ -27,17 +27,17 @@ import (
 	"strings"
 	"time"
 
-	etcdErr "github.com/coreos/etcd/error"
-	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/etcdserver/api"
-	"github.com/coreos/etcd/etcdserver/api/etcdhttp"
-	"github.com/coreos/etcd/etcdserver/api/v2http/httptypes"
-	"github.com/coreos/etcd/etcdserver/auth"
-	"github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/etcdserver/membership"
-	"github.com/coreos/etcd/etcdserver/stats"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/store"
+	etcdErr "github.com/everjs78/etcd/error"
+	"github.com/everjs78/etcd/etcdserver"
+	"github.com/everjs78/etcd/etcdserver/api"
+	"github.com/everjs78/etcd/etcdserver/api/etcdhttp"
+	"github.com/everjs78/etcd/etcdserver/api/v2http/httptypes"
+	"github.com/everjs78/etcd/etcdserver/auth"
+	"github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/etcdserver/membership"
+	"github.com/everjs78/etcd/etcdserver/stats"
+	"github.com/everjs78/etcd/pkg/types"
+	"github.com/everjs78/etcd/store"
 
 	"github.com/jonboulle/clockwork"
 )
@@ -73,11 +73,11 @@ func handleV2(mux *http.ServeMux, server etcdserver.ServerV2, timeout time.Durat
 	}
 
 	mh := &membersHandler{
-		sec:     sec,
-		server:  server,
-		cluster: server.Cluster(),
-		timeout: timeout,
-		clock:   clockwork.NewRealClock(),
+		sec:                   sec,
+		server:                server,
+		cluster:               server.Cluster(),
+		timeout:               timeout,
+		clock:                 clockwork.NewRealClock(),
 		clientCertAuthEnabled: server.ClientCertAuthEnabled(),
 	}
 

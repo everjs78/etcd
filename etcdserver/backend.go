@@ -19,11 +19,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/coreos/etcd/lease"
-	"github.com/coreos/etcd/mvcc"
-	"github.com/coreos/etcd/mvcc/backend"
-	"github.com/coreos/etcd/raft/raftpb"
-	"github.com/coreos/etcd/snap"
+	"github.com/everjs78/etcd/lease"
+	"github.com/everjs78/etcd/mvcc"
+	"github.com/everjs78/etcd/mvcc/backend"
+	"github.com/everjs78/etcd/raft/raftpb"
+	"github.com/everjs78/etcd/snap"
 )
 
 func newBackend(cfg ServerConfig) backend.Backend {

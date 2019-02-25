@@ -19,11 +19,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coreos/etcd/etcdserver/stats"
-	"github.com/coreos/etcd/pkg/types"
-	"github.com/coreos/etcd/raft"
-	"github.com/coreos/etcd/raft/raftpb"
-	"github.com/coreos/etcd/snap"
+	"github.com/everjs78/etcd/etcdserver/stats"
+	"github.com/everjs78/etcd/pkg/types"
+	"github.com/everjs78/etcd/raft"
+	"github.com/everjs78/etcd/raft/raftpb"
+	"github.com/everjs78/etcd/snap"
 
 	"golang.org/x/time/rate"
 )

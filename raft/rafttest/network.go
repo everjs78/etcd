@@ -19,7 +19,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coreos/etcd/raft/raftpb"
+	"github.com/everjs78/etcd/raft/raftpb"
 )
 
 // a network interface

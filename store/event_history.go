@@ -20,7 +20,7 @@ import (
 	"strings"
 	"sync"
 
-	etcdErr "github.com/coreos/etcd/error"
+	etcdErr "github.com/everjs78/etcd/error"
 )
 
 type EventHistory struct {

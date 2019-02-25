@@ -22,10 +22,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coreos/etcd/clientv3/mirror"
-	"github.com/coreos/etcd/integration"
-	"github.com/coreos/etcd/mvcc/mvccpb"
-	"github.com/coreos/etcd/pkg/testutil"
+	"github.com/everjs78/etcd/clientv3/mirror"
+	"github.com/everjs78/etcd/integration"
+	"github.com/everjs78/etcd/mvcc/mvccpb"
+	"github.com/everjs78/etcd/pkg/testutil"
 )
 
 func TestMirrorSync(t *testing.T) {

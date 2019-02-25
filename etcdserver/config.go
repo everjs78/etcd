@@ -22,9 +22,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/coreos/etcd/pkg/netutil"
-	"github.com/coreos/etcd/pkg/transport"
-	"github.com/coreos/etcd/pkg/types"
+	"github.com/everjs78/etcd/pkg/netutil"
+	"github.com/everjs78/etcd/pkg/transport"
+	"github.com/everjs78/etcd/pkg/types"
 )
 
 // ServerConfig holds the configuration of etcd as taken from the command line or discovery.

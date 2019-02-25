@@ -20,8 +20,8 @@ import (
 	"testing"
 	"time"
 
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/pkg/testutil"
+	pb "github.com/everjs78/etcd/etcdserver/etcdserverpb"
+	"github.com/everjs78/etcd/pkg/testutil"
 )
 
 // TestMetricDbSizeBoot checks that the db size metric is set on boot.
