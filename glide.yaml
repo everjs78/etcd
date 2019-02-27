@@ -150,3 +150,6 @@ import:
   version: 89b8d40f7ca833297db804fcb3be53a76d01c238
   subpackages:
   - wsproxy
+- package: github.com/aergoio/aergo-lib
+  subpackages:
+  - log

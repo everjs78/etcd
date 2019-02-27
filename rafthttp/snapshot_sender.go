@@ -75,12 +75,20 @@ func (s *snapshotSender) send(merged snap.Message) {
 	u := s.picker.pick()
 	req := createPostRequest(u, RaftSnapshotPrefix, body, "application/octet-stream", s.tr.URLs, s.from, s.cid)
 
-	plog.Infof("start to send database snapshot [index: %d, to %s]...", m.Snapshot.Metadata.Index, types.ID(m.To))
+	if logger != nil {
+		logger.Info().Msgf("start to send database snapshot [index: %d, to %s]...", m.Snapshot.Metadata.Index, types.ID(m.To))
+	} else {
+		plog.Infof("start to send database snapshot [index: %d, to %s]...", m.Snapshot.Metadata.Index, types.ID(m.To))
+	}
 
 	err := s.post(req)
 	defer merged.CloseWithError(err)
 	if err != nil {
-		plog.Warningf("database snapshot [index: %d, to: %s] failed to be sent out (%v)", m.Snapshot.Metadata.Index, types.ID(m.To), err)
+		if logger != nil {
+			logger.Warn().Msgf("database snapshot [index: %d, to: %s] failed to be sent out (%v)", m.Snapshot.Metadata.Index, types.ID(m.To), err)
+		} else {
+			plog.Warningf("database snapshot [index: %d, to: %s] failed to be sent out (%v)", m.Snapshot.Metadata.Index, types.ID(m.To), err)
+		}
 
 		// errMemberRemoved is a critical error since a removed member should
 		// always be stopped. So we use reportCriticalError to report it to errorc.
@@ -101,7 +109,11 @@ func (s *snapshotSender) send(merged snap.Message) {
 	}
 	s.status.activate()
 	s.r.ReportSnapshot(m.To, raft.SnapshotFinish)
-	plog.Infof("database snapshot [index: %d, to: %s] sent out successfully", m.Snapshot.Metadata.Index, types.ID(m.To))
+	if logger != nil {
+		logger.Info().Msgf("database snapshot [index: %d, to: %s] sent out successfully", m.Snapshot.Metadata.Index, types.ID(m.To))
+	} else {
+		plog.Infof("database snapshot [index: %d, to: %s] sent out successfully", m.Snapshot.Metadata.Index, types.ID(m.To))
+	}
 
 	sentBytes.WithLabelValues(to).Add(float64(merged.TotalSize))
 
@@ -154,7 +166,11 @@ func createSnapBody(merged snap.Message) io.ReadCloser {
 	enc := &messageEncoder{w: buf}
 	// encode raft message
 	if err := enc.encode(&merged.Message); err != nil {
-		plog.Panicf("encode message error (%v)", err)
+		if logger != nil {
+			logger.Panic().Msgf("encode message error (%v)", err)
+		} else {
+			plog.Panicf("encode message error (%v)", err)
+		}
 	}
 
 	return &pioutil.ReaderAndCloser{

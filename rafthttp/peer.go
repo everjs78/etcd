@@ -119,8 +119,18 @@ type peer struct {
 }
 
 func startPeer(transport *Transport, urls types.URLs, peerID types.ID, fs *stats.FollowerStats) *peer {
-	plog.Infof("starting peer %s...", peerID)
-	defer plog.Infof("started peer %s", peerID)
+	if logger != nil {
+		logger.Info().Msgf("starting peer %s...", peerID)
+	} else {
+		plog.Infof("starting peer %s...", peerID)
+	}
+	defer func() {
+		if logger != nil {
+			logger.Info().Msgf("started peer %s", peerID)
+		} else {
+			plog.Infof("started peer %s", peerID)
+		}
+	}()
 
 	status := newPeerStatus(peerID)
 	picker := newURLPicker(urls)
@@ -158,7 +168,11 @@ func startPeer(transport *Transport, urls types.URLs, peerID types.ID, fs *stats
 			select {
 			case mm := <-p.recvc:
 				if err := r.Process(ctx, mm); err != nil {
-					plog.Warningf("failed to process raft message (%v)", err)
+					if logger != nil {
+						logger.Warn().Msgf("failed to process raft message (%v)", err)
+					} else {
+						plog.Warningf("failed to process raft message (%v)", err)
+					}
 				}
 			case <-p.stopc:
 				return
@@ -174,7 +188,11 @@ func startPeer(transport *Transport, urls types.URLs, peerID types.ID, fs *stats
 			select {
 			case mm := <-p.propc:
 				if err := r.Process(ctx, mm); err != nil {
-					plog.Warningf("failed to process raft message (%v)", err)
+					if logger != nil {
+						logger.Warn().Msgf("failed to process raft message (%v)", err)
+					} else {
+						plog.Warningf("failed to process raft message (%v)", err)
+					}
 				}
 			case <-p.stopc:
 				return
@@ -227,9 +245,17 @@ func (p *peer) send(m raftpb.Message) {
 			p.r.ReportSnapshot(m.To, raft.SnapshotFailure)
 		}
 		if p.status.isActive() {
-			plog.MergeWarningf("dropped internal raft message to %s since %s's sending buffer is full (bad/overloaded network)", p.id, name)
+			if logger != nil {
+				logger.Warn().Msgf("dropped internal raft message to %s since %s's sending buffer is full (bad/overloaded network)", p.id, name)
+			} else {
+				plog.MergeWarningf("dropped internal raft message to %s since %s's sending buffer is full (bad/overloaded network)", p.id, name)
+			}
 		}
-		plog.Debugf("dropped %s to %s since %s's sending buffer is full", m.Type, p.id, name)
+		if logger != nil {
+			logger.Debug().Msgf("dropped %s to %s since %s's sending buffer is full", m.Type, p.id, name)
+		} else {
+			plog.Debugf("dropped %s to %s since %s's sending buffer is full", m.Type, p.id, name)
+		}
 		sentFailures.WithLabelValues(types.ID(m.To).String()).Inc()
 	}
 }
@@ -250,7 +276,11 @@ func (p *peer) attachOutgoingConn(conn *outgoingConn) {
 	case streamTypeMessage:
 		ok = p.writer.attach(conn)
 	default:
-		plog.Panicf("unhandled stream type %s", conn.t)
+		if logger != nil {
+			logger.Panic().Msgf("unhandled stream type %s", conn.t)
+		} else {
+			plog.Panicf("unhandled stream type %s", conn.t)
+		}
 	}
 	if !ok {
 		conn.Close()
@@ -279,8 +309,18 @@ func (p *peer) Resume() {
 }
 
 func (p *peer) stop() {
-	plog.Infof("stopping peer %s...", p.id)
-	defer plog.Infof("stopped peer %s", p.id)
+	if logger != nil {
+		logger.Info().Msgf("stopping peer %s...", p.id)
+	} else {
+		plog.Infof("stopping peer %s...", p.id)
+	}
+	defer func() {
+		if logger != nil {
+			logger.Info().Msgf("stopped peer %s", p.id)
+		} else {
+			plog.Infof("stopped peer %s", p.id)
+		}
+	}()
 
 	close(p.stopc)
 	p.cancel()

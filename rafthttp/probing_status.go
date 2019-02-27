@@ -47,7 +47,11 @@ func addPeerToProber(p probing.Prober, id string, us []string, roundTripperName 
 
 	s, err := p.Status(id)
 	if err != nil {
-		plog.Errorf("failed to add peer %s into prober", id)
+		if logger != nil {
+			logger.Error().Msgf("failed to add peer %s into prober", id)
+		} else {
+			plog.Errorf("failed to add peer %s into prober", id)
+		}
 	} else {
 		go monitorProbingStatus(s, id, roundTripperName, rttSecProm)
 	}
@@ -60,13 +64,21 @@ func monitorProbingStatus(s probing.Status, id string, roundTripperName string, 
 		select {
 		case <-time.After(interval):
 			if !s.Health() {
-				plog.Warningf("health check for peer %s could not connect: %v (prober %q)", id, s.Err(), roundTripperName)
+				if logger != nil {
+					logger.Warn().Msgf("health check for peer %s could not connect: %v (prober %q)", id, s.Err(), roundTripperName)
+				} else {
+					plog.Warningf("health check for peer %s could not connect: %v (prober %q)", id, s.Err(), roundTripperName)
+				}
 				interval = statusErrorInterval
 			} else {
 				interval = statusMonitoringInterval
 			}
 			if s.ClockDiff() > time.Second {
-				plog.Warningf("the clock difference against peer %s is too high [%v > %v] (prober %q)", id, s.ClockDiff(), time.Second, roundTripperName)
+				if logger != nil {
+					logger.Warn().Msgf("the clock difference against peer %s is too high [%v > %v] (prober %q)", id, s.ClockDiff(), time.Second, roundTripperName)
+				} else {
+					plog.Warningf("the clock difference against peer %s is too high [%v > %v] (prober %q)", id, s.ClockDiff(), time.Second, roundTripperName)
+				}
 			}
 			rttSecProm.WithLabelValues(id).Observe(s.SRTT().Seconds())
 		case <-s.StopNotify():

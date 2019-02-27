@@ -44,7 +44,11 @@ func (s *peerStatus) activate() {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if !s.active {
-		plog.Infof("peer %s became active", s.id)
+		if logger != nil {
+			logger.Info().Msgf("peer %s became active", s.id)
+		} else {
+			plog.Infof("peer %s became active", s.id)
+		}
 		s.active = true
 		s.since = time.Now()
 	}
@@ -55,13 +59,25 @@ func (s *peerStatus) deactivate(failure failureType, reason string) {
 	defer s.mu.Unlock()
 	msg := fmt.Sprintf("failed to %s %s on %s (%s)", failure.action, s.id, failure.source, reason)
 	if s.active {
-		plog.Errorf(msg)
-		plog.Infof("peer %s became inactive (message send to peer failed)", s.id)
+		if logger != nil {
+			logger.Error().Msgf(msg)
+		} else {
+			plog.Errorf(msg)
+		}
+		if logger != nil {
+			logger.Info().Msgf("peer %s became inactive (message send to peer failed)", s.id)
+		} else {
+			plog.Infof("peer %s became inactive (message send to peer failed)", s.id)
+		}
 		s.active = false
 		s.since = time.Time{}
 		return
 	}
-	plog.Debugf(msg)
+	if logger != nil {
+		logger.Debug().Msgf(msg)
+	} else {
+		plog.Debugf(msg)
+	}
 }
 
 func (s *peerStatus) isActive() bool {

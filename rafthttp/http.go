@@ -99,7 +99,11 @@ func (h *pipelineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	limitedr := pioutil.NewLimitedBufferReader(r.Body, connReadLimitByte)
 	b, err := ioutil.ReadAll(limitedr)
 	if err != nil {
-		plog.Errorf("failed to read raft message (%v)", err)
+		if logger != nil {
+			logger.Error().Msgf("failed to read raft message (%v)", err)
+		} else {
+			plog.Errorf("failed to read raft message (%v)", err)
+		}
 		http.Error(w, "error reading raft message", http.StatusBadRequest)
 		recvFailures.WithLabelValues(r.RemoteAddr).Inc()
 		return
@@ -107,7 +111,11 @@ func (h *pipelineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	var m raftpb.Message
 	if err := m.Unmarshal(b); err != nil {
-		plog.Errorf("failed to unmarshal raft message (%v)", err)
+		if logger != nil {
+			logger.Error().Msgf("failed to unmarshal raft message (%v)", err)
+		} else {
+			plog.Errorf("failed to unmarshal raft message (%v)", err)
+		}
 		http.Error(w, "error unmarshaling raft message", http.StatusBadRequest)
 		recvFailures.WithLabelValues(r.RemoteAddr).Inc()
 		return
@@ -120,7 +128,11 @@ func (h *pipelineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		case writerToResponse:
 			v.WriteTo(w)
 		default:
-			plog.Warningf("failed to process raft message (%v)", err)
+			if logger != nil {
+				logger.Warn().Msgf("failed to process raft message (%v)", err)
+			} else {
+				plog.Warningf("failed to process raft message (%v)", err)
+			}
 			http.Error(w, "error processing raft message", http.StatusInternalServerError)
 			w.(http.Flusher).Flush()
 			// disconnect the http stream
@@ -187,7 +199,11 @@ func (h *snapshotHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	from := types.ID(m.From).String()
 	if err != nil {
 		msg := fmt.Sprintf("failed to decode raft message (%v)", err)
-		plog.Errorf(msg)
+		if logger != nil {
+			logger.Error().Msgf(msg)
+		} else {
+			plog.Errorf(msg)
+		}
 		http.Error(w, msg, http.StatusBadRequest)
 		recvFailures.WithLabelValues(r.RemoteAddr).Inc()
 		snapshotReceiveFailures.WithLabelValues(from).Inc()
@@ -197,24 +213,40 @@ func (h *snapshotHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	receivedBytes.WithLabelValues(from).Add(float64(m.Size()))
 
 	if m.Type != raftpb.MsgSnap {
-		plog.Errorf("unexpected raft message type %s on snapshot path", m.Type)
+		if logger != nil {
+			logger.Error().Msgf("unexpected raft message type %s on snapshot path", m.Type)
+		} else {
+			plog.Errorf("unexpected raft message type %s on snapshot path", m.Type)
+		}
 		http.Error(w, "wrong raft message type", http.StatusBadRequest)
 		snapshotReceiveFailures.WithLabelValues(from).Inc()
 		return
 	}
 
-	plog.Infof("receiving database snapshot [index:%d, from %s] ...", m.Snapshot.Metadata.Index, types.ID(m.From))
+	if logger != nil {
+		logger.Info().Msgf("receiving database snapshot [index:%d, from %s] ...", m.Snapshot.Metadata.Index, types.ID(m.From))
+	} else {
+		plog.Infof("receiving database snapshot [index:%d, from %s] ...", m.Snapshot.Metadata.Index, types.ID(m.From))
+	}
 	// save incoming database snapshot.
 	n, err := h.snapshotter.SaveDBFrom(r.Body, m.Snapshot.Metadata.Index)
 	if err != nil {
 		msg := fmt.Sprintf("failed to save KV snapshot (%v)", err)
-		plog.Error(msg)
+		if logger != nil {
+			logger.Error().Msg(msg)
+		} else {
+			plog.Error(msg)
+		}
 		http.Error(w, msg, http.StatusInternalServerError)
 		snapshotReceiveFailures.WithLabelValues(from).Inc()
 		return
 	}
 	receivedBytes.WithLabelValues(from).Add(float64(n))
-	plog.Infof("received and saved database snapshot [index: %d, from: %s] successfully", m.Snapshot.Metadata.Index, types.ID(m.From))
+	if logger != nil {
+		logger.Info().Msgf("received and saved database snapshot [index: %d, from: %s] successfully", m.Snapshot.Metadata.Index, types.ID(m.From))
+	} else {
+		plog.Infof("received and saved database snapshot [index: %d, from: %s] successfully", m.Snapshot.Metadata.Index, types.ID(m.From))
+	}
 
 	if err := h.r.Process(context.TODO(), m); err != nil {
 		switch v := err.(type) {
@@ -224,7 +256,11 @@ func (h *snapshotHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			v.WriteTo(w)
 		default:
 			msg := fmt.Sprintf("failed to process raft message (%v)", err)
-			plog.Warningf(msg)
+			if logger != nil {
+				logger.Warn().Msgf(msg)
+			} else {
+				plog.Warningf(msg)
+			}
 			http.Error(w, msg, http.StatusInternalServerError)
 			snapshotReceiveFailures.WithLabelValues(from).Inc()
 		}
@@ -278,7 +314,11 @@ func (h *streamHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case streamTypeMessage.endpoint():
 		t = streamTypeMessage
 	default:
-		plog.Debugf("ignored unexpected streaming request path %s", r.URL.Path)
+		if logger != nil {
+			logger.Debug().Msgf("ignored unexpected streaming request path %s", r.URL.Path)
+		} else {
+			plog.Debugf("ignored unexpected streaming request path %s", r.URL.Path)
+		}
 		http.Error(w, "invalid path", http.StatusNotFound)
 		return
 	}
@@ -286,12 +326,20 @@ func (h *streamHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	fromStr := path.Base(r.URL.Path)
 	from, err := types.IDFromString(fromStr)
 	if err != nil {
-		plog.Errorf("failed to parse from %s into ID (%v)", fromStr, err)
+		if logger != nil {
+			logger.Error().Msgf("failed to parse from %s into ID (%v)", fromStr, err)
+		} else {
+			plog.Errorf("failed to parse from %s into ID (%v)", fromStr, err)
+		}
 		http.Error(w, "invalid from", http.StatusNotFound)
 		return
 	}
 	if h.r.IsIDRemoved(uint64(from)) {
-		plog.Warningf("rejected the stream from peer %s since it was removed", from)
+		if logger != nil {
+			logger.Warn().Msgf("rejected the stream from peer %s since it was removed", from)
+		} else {
+			plog.Warningf("rejected the stream from peer %s since it was removed", from)
+		}
 		http.Error(w, "removed member", http.StatusGone)
 		return
 	}
@@ -305,14 +353,22 @@ func (h *streamHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if urls := r.Header.Get("X-PeerURLs"); urls != "" {
 			h.tr.AddRemote(from, strings.Split(urls, ","))
 		}
-		plog.Errorf("failed to find member %s in cluster %s", from, h.cid)
+		if logger != nil {
+			logger.Error().Msgf("failed to find member %s in cluster %s", from, h.cid)
+		} else {
+			plog.Errorf("failed to find member %s in cluster %s", from, h.cid)
+		}
 		http.Error(w, "error sender not found", http.StatusNotFound)
 		return
 	}
 
 	wto := h.id.String()
 	if gto := r.Header.Get("X-Raft-To"); gto != wto {
-		plog.Errorf("streaming request ignored (ID mismatch got %s want %s)", gto, wto)
+		if logger != nil {
+			logger.Error().Msgf("streaming request ignored (ID mismatch got %s want %s)", gto, wto)
+		} else {
+			plog.Errorf("streaming request ignored (ID mismatch got %s want %s)", gto, wto)
+		}
 		http.Error(w, "to field mismatch", http.StatusPreconditionFailed)
 		return
 	}
@@ -338,11 +394,19 @@ func (h *streamHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // matches the one in the header.
 func checkClusterCompatibilityFromHeader(header http.Header, cid types.ID) error {
 	if err := checkVersionCompability(header.Get("X-Server-From"), serverVersion(header), minClusterVersion(header)); err != nil {
-		plog.Errorf("request version incompatibility (%v)", err)
+		if logger != nil {
+			logger.Error().Msgf("request version incompatibility (%v)", err)
+		} else {
+			plog.Errorf("request version incompatibility (%v)", err)
+		}
 		return errIncompatibleVersion
 	}
 	if gcid := header.Get("X-Etcd-Cluster-ID"); gcid != cid.String() {
-		plog.Errorf("request cluster ID mismatch (got %s want %s)", gcid, cid)
+		if logger != nil {
+			logger.Error().Msgf("request cluster ID mismatch (got %s want %s)", gcid, cid)
+		} else {
+			plog.Errorf("request cluster ID mismatch (got %s want %s)", gcid, cid)
+		}
 		return errClusterIDMismatch
 	}
 	return nil

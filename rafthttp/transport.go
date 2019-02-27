@@ -20,6 +20,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/aergoio/aergo-lib/log"
 	"github.com/everjs78/etcd/etcdserver/stats"
 	"github.com/everjs78/etcd/pkg/logutil"
 	"github.com/everjs78/etcd/pkg/transport"
@@ -34,6 +35,7 @@ import (
 )
 
 var plog = logutil.NewMergeLogger(capnslog.NewPackageLogger("github.com/everjs78/etcd", "rafthttp"))
+var logger *log.Logger = nil
 
 type Raft interface {
 	Process(ctx context.Context, m raftpb.Message) error
@@ -155,6 +157,10 @@ func (t *Transport) Start() error {
 	return nil
 }
 
+func (t *Transport) SetLogger(extLogger *log.Logger) {
+	logger = extLogger
+}
+
 func (t *Transport) Handler() http.Handler {
 	pipelineHandler := newPipelineHandler(t, t.Raft, t.ClusterID)
 	streamHandler := newStreamHandler(t, t, t.Raft, t.ID, t.ClusterID)
@@ -199,7 +205,11 @@ func (t *Transport) Send(msgs []raftpb.Message) {
 			continue
 		}
 
-		plog.Debugf("ignored message %s (sent to unknown peer %s)", m.Type, to)
+		if logger != nil {
+			logger.Debug().Msgf("ignored message %s (sent to unknown peer %s)", m.Type, to)
+		} else {
+			plog.Debugf("ignored message %s (sent to unknown peer %s)", m.Type, to)
+		}
 	}
 }
 
@@ -271,7 +281,11 @@ func (t *Transport) AddRemote(id types.ID, us []string) {
 	}
 	urls, err := types.NewURLs(us)
 	if err != nil {
-		plog.Panicf("newURLs %+v should never fail: %+v", us, err)
+		if logger != nil {
+			logger.Panic().Msgf("newURLs %+v should never fail: %+v", us, err)
+		} else {
+			plog.Panicf("newURLs %+v should never fail: %+v", us, err)
+		}
 	}
 	t.remotes[id] = startRemote(t, urls, id)
 }
@@ -288,13 +302,21 @@ func (t *Transport) AddPeer(id types.ID, us []string) {
 	}
 	urls, err := types.NewURLs(us)
 	if err != nil {
-		plog.Panicf("newURLs %+v should never fail: %+v", us, err)
+		if logger != nil {
+			logger.Panic().Msgf("newURLs %+v should never fail: %+v", us, err)
+		} else {
+			plog.Panicf("newURLs %+v should never fail: %+v", us, err)
+		}
 	}
 	fs := t.LeaderStats.Follower(id.String())
 	t.peers[id] = startPeer(t, urls, id, fs)
 	addPeerToProber(t.pipelineProber, id.String(), us, RoundTripperNameSnapshot, rtts)
 	addPeerToProber(t.streamProber, id.String(), us, RoundTripperNameRaftMessage, rtts)
-	plog.Infof("added peer %s", id)
+	if logger != nil {
+		logger.Info().Msgf("added peer %s", id)
+	} else {
+		plog.Infof("added peer %s", id)
+	}
 }
 
 func (t *Transport) RemovePeer(id types.ID) {
@@ -316,13 +338,21 @@ func (t *Transport) removePeer(id types.ID) {
 	if peer, ok := t.peers[id]; ok {
 		peer.stop()
 	} else {
-		plog.Panicf("unexpected removal of unknown peer '%d'", id)
+		if logger != nil {
+			logger.Panic().Msgf("unexpected removal of unknown peer '%d'", id)
+		} else {
+			plog.Panicf("unexpected removal of unknown peer '%d'", id)
+		}
 	}
 	delete(t.peers, id)
 	delete(t.LeaderStats.Followers, id.String())
 	t.pipelineProber.Remove(id.String())
 	t.streamProber.Remove(id.String())
-	plog.Infof("removed peer %s", id)
+	if logger != nil {
+		logger.Info().Msgf("removed peer %s", id)
+	} else {
+		plog.Infof("removed peer %s", id)
+	}
 }
 
 func (t *Transport) UpdatePeer(id types.ID, us []string) {
@@ -334,7 +364,11 @@ func (t *Transport) UpdatePeer(id types.ID, us []string) {
 	}
 	urls, err := types.NewURLs(us)
 	if err != nil {
-		plog.Panicf("newURLs %+v should never fail: %+v", us, err)
+		if logger != nil {
+			logger.Panic().Msgf("newURLs %+v should never fail: %+v", us, err)
+		} else {
+			plog.Panicf("newURLs %+v should never fail: %+v", us, err)
+		}
 	}
 	t.peers[id].update(urls)
 
@@ -342,7 +376,11 @@ func (t *Transport) UpdatePeer(id types.ID, us []string) {
 	addPeerToProber(t.pipelineProber, id.String(), us, RoundTripperNameSnapshot, rtts)
 	t.streamProber.Remove(id.String())
 	addPeerToProber(t.streamProber, id.String(), us, RoundTripperNameRaftMessage, rtts)
-	plog.Infof("updated peer %s", id)
+	if logger != nil {
+		logger.Info().Msgf("updated peer %s", id)
+	} else {
+		plog.Infof("updated peer %s", id)
+	}
 }
 
 func (t *Transport) ActiveSince(id types.ID) time.Time {
